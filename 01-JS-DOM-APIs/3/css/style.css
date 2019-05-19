@@ -3,8 +3,11 @@ section {
 }
 
 .hidden {
+    display: none;
 }
 
 .changeColor {
-    background-color: blue;
+    width: auto;
+    height: 300px;
+    background-color: red;
 }

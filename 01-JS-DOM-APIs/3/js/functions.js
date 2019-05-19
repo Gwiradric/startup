@@ -2,18 +2,27 @@ document.addEventListener("DOMContentLoaded", initJs);
 
 function initJs() {
     "use strict"
+    
+    let section = document.querySelector(".hidden");
 
+    function deleteElement(section) {
+        section.innerHTML = "";
+        section.classList.remove("hidden");
+    }
+    
+    deleteElement(section);
+    
     function getAlert() {
         // USE ALERT
         alert("ALERT ACTIVATED!");
     }
 
-    function getData(section, url) {
+    function requestServer(section, url) {
         let xhr = new XMLHttpRequest;
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 let object = JSON.parse(this.response);
-                section.innerHTML = object.value.joke;
+                section.innerHTML = "id: " + object.value.id + "</br>" + "Joke: " + object.value.joke;
             }
         };
         xhr.open(method, url);
@@ -25,8 +34,7 @@ function initJs() {
     
     let actionBtn = document.getElementById("action-btn");
     actionBtn.addEventListener("click", function() {
-        getData(section, url);
+        requestServer(section, url);
     });
-
-    let section = document.querySelector(".hidden");
+    
 }
