@@ -3,21 +3,50 @@ document.addEventListener("DOMContentLoaded", initJS);
 function initJS() {
     "uses strict"
 
-    class Movie {
+    class EventEmitter {
+        constructor() {
+            this.events = [];
+        }
+        on(eventName, callback) {
+            this.events.push(eventName, callback);
+        }
+        emit(eventName) {
+            for (let i = 0; i < (this.events.length); i++) {
+                if (events[i] === eventName)
+                    console.log(eventName + "is emitted");
+            }
+        }
+        off(eventName, callback) {
+            this.events = this.events.filter(function(event) {
+                if (event.eventName === eventName && event.callback === callback) {
+                    return false;
+                }
+                return true;
+            });
+            console.log(eventName + "is deleted");
+        }
+
+        getEvents() {
+            console.log(this.events);
+        }
+    }
+
+    class Movie extends EventEmitter{
         //MOVIE CLASS
         constructor(name, year, duration) {
+            super();
             this.title = name;
             this.year = year;
             this.duration = duration;
         }
         play() {
-            console.log("The movie is playing");
+            console.log(this.title + " is playing");
         }
         pause() {
-            console.log("The movie is paused");
+            console.log(this.title + " is paused");
         }
         resume() {
-            console.log("The movie continues");
+            console.log(this.title + " continues");
         }
 
         get movieName() {
@@ -41,56 +70,11 @@ function initJS() {
         }
     }
 
-    class EventEmitter {
-        constructor() {
+    const avengers = new Movie("Avengers: End Game", 2019, "2:30 hs");
 
-        }
-        on(eventName, callback) {
-
-        }
-        emit(eventName) {
-
-        }
-        off(eventName, callback) {
-
-        }
-    }
-
-    let addBtn = document.getElementById("movieBtn");
-    addBtn.addEventListener("click", createMovieInstance);
-
-    function createButton(method, content) {
-        let button = document.createElement("button");
-        button.addEventListener("click", method);
-        button.textContent = content;
-        return button;
-    }
-
-    function insertElements(movie, playBtn, pauseBtn, resumeBtn) {
-        let data = document.createElement("p");
-        data.textContent = "Name: " + movie.movieName + ". Year: " + movie.movieYear + ". Duration: " + movie.movieDuration;
-        let node = document.createElement("div");
-        node.appendChild(data);
-        node.appendChild(playBtn);
-        node.appendChild(pauseBtn);
-        node.appendChild(resumeBtn);
-        document.getElementById("movieMenu").appendChild(node);
-    }
-
-    function createMovieInstance() {
-        let name = document.getElementById("movieName").value;
-        let duration = document.getElementById("movieYear").value;
-        let year = document.getElementById("movieDuration").value;
-
-        //INSTANCE OF THE MOVIE
-        let movie = new Movie(name, duration, year);
-
-        //MENU BUTTONS CREATED
-        let playBtn = createButton(movie.play, "PLAY");
-        let pauseBtn = createButton(movie.pause, "PAUSE");
-        let resumeBtn = createButton(movie.resume, "RESUME");
-
-        insertElements(movie, playBtn, pauseBtn, resumeBtn);
-    }
+    avengers.play();
+    avengers.pause();
+    avengers.resume();
+    
 
 }
