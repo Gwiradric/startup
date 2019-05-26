@@ -99,7 +99,8 @@ function initJS() {
     avengers.addCast(arnold);
     avengers.addCast(actors);
 
-    const eventEmitter = new EventEmitter();
+    export const eventEmitter = new EventEmitter();
     const logger = new Logger();
     avengers.play();
+    avengers.movieCast();
 }
